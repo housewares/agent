@@ -46,11 +46,13 @@ If you have no hosts added to Rancher server you may only need this. Otherwise, 
 4. Push resulting image to your registry
 5. Upgrade your Rancher server to this image: https://rancher.com/docs/rancher/v1.6/en/upgrading/
 
+Alternatevely, you can use pre-bult image: [housewares/server](https://hub.docker.com/r/housewares/server)
+
 ### Details
 
-The agent build output goes here. I don't have time/energy to make proper image builds for `rancher/server` image, so we just use it as a base and copy our custom agent build output on top of the existing image. See [Dockerfile](Dockerfile) in this directory for details.
+I don't have time/energy to make proper image builds for `rancher/server` image, so we just use it as a base and copy our custom agent build output on top of the existing image. See [Dockerfile](Dockerfile) in this directory for details.
 
-The [server-and-agent-versions.sh](server-and-agent-versions.sh) script goes through the [rancher/server](https://hub.docker.com/r/rancher/server) images and tries to figure out what version of Linux agent is included in the image and which commit in this repo it's built from.
+The [server-and-agent-versions.sh](server-and-agent-versions.sh) helper script goes through the [rancher/server](https://hub.docker.com/r/rancher/server) images and tries to figure out what version of Linux agent is included in the image and which commit in this repo it's built from.
 
 Note, that `-dirty` in version means that agent was built from non-tagged commit and there were untracked files in the repo. See [version](/scripts/version) script for details.
 
