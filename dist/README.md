@@ -1,8 +1,54 @@
-# Bulding custom versions of [rancher/server](https://hub.docker.com/r/rancher/server) 1.6.x image
+# Building and deploying custom agent version for Rancher 1.6.x
+
+Depending on your setup, to use updated `agent` binary you may need to follow one of the options below.
+
+Note that [rancher/agent](https://hub.docker.com/r/rancher/agent) image doesn't include an actual `agent` binary. It's acquired from the server during the agent startup on host.
+
+## 1. Updating agent in `rancher-agent` container
+
+If you already run `rancher-agent` container on registered hosts, you can update `agent` binary directly in the container.
+
+1. Run `make` in repo root to build agent
+2. Upload [bin/agent](/bin/agent) to http(s) server
+3. Login to Rancher worker node (not server!)
+4. Execute this one-liner, supplying correct url for uploaded `agent` binary in step 1
+    ```shell
+    docker exec \
+    --env agent_url='https://example.com/agent' \
+    --env agent_path='/var/lib/cattle/pyagent/agent' \
+    rancher-agent \
+    bash -c '\
+    mv --verbose --no-clobber "${agent_path}" "${agent_path}.bak" && \
+    rm "${agent_path}" && \
+    curl "${agent_url}" --silent --location --output "${agent_path}" && \
+    chmod +x "${agent_path}" && \
+    killall --exact agent && \
+    "${agent_path}" --version'
+    ```
+
+## 2. Specify alternate agent archive url for new hosts
+
+If you plan to register new hosts, you can configure Rancher server to send [custom url](https://forums.rancher.com/t/docs-on-how-to-build-a-debug-rancher-rancher-agent/6351) for `agent` binary archive to newly registering hosts.
+
+1. Run `make` in repo root to build agent
+2. Upload [dist/artifacts/go-agent.tar.gz](/dist/artifacts/go-agent.tar.gz) to http(s) server
+3. Configure `agent.package.python.agent.url` setting in Rancher server with new url from step 1:  
+   https://your-rancher-server/v2-beta/settings/agent.package.python.agent.url
+4. Register new host with Rancher server as usual, by running `rancher-agent` container with options provided by Rancher server's `Add host` page.
+
+## 3. Buld custom versions of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
+
+If you have no hosts added to Rancher server you may only need this. Otherwise, see option 1 to update existing hosts.
+
+1. Run `make` in repo root
+2. Update `CATTLE_RANCHER_SERVER_IMAGE` variable in [Dockerfile](Dockerfile) with your container image registry/repository
+3. Run `docker build .` in this directory
+4. Push resulting image to your registry
+5. Upgrade your Rancher server to this image: https://rancher.com/docs/rancher/v1.6/en/upgrading/
+
+### Details
 
 The agent build output goes here. I don't have time/energy to make proper image builds for `rancher/server` image, so we just use it as a base and copy our custom agent build output on top of the existing image. See [Dockerfile](Dockerfile) in this directory for details.
-
-Note that [rancher/agent](https://hub.docker.com/r/rancher/agent) image doesn't include an actual agent binary. It's acquired from the server during the agent startup on host.
 
 The [server-and-agent-versions.sh](server-and-agent-versions.sh) script goes through the [rancher/server](https://hub.docker.com/r/rancher/server) images and tries to figure out what version of Linux agent is included in the image and which commit in this repo it's built from.
 
