@@ -1,3 +1,14 @@
+
+---
+
+⚠️ Custom version of `rancher/agent` with disabled [links](https://rancher.com/docs/rancher/v1.6/en/cattle/adding-services/#linking-services) support to workaround this issue:
+
+* https://github.com/rancher/rancher/issues/30734
+
+See [dist/README.md](dist/README.md) for details on building and deploying this custom agent version.
+
+---
+
 agent
 ========
 
