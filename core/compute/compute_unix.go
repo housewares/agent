@@ -117,7 +117,13 @@ func setupNetworking(instance model.Instance, host model.Host, config *container
 	}
 	setupMacAndIP(instance, config, portsSupported, hostnameSupported)
 	setupPortsNetwork(instance, config, hostConfig, portsSupported)
-	setupLinksNetwork(instance, config, hostConfig)
+	// Completely disable links support.
+	// It leaks service env. vars to the loadbalancer container and when you have many services
+	// the loadbalancer container will fail to start because of the env. var size limit:
+	//
+	// standard_init_linux.go:190: exec user process caused "argument list too long"
+	//
+	// setupLinksNetwork(instance, config, hostConfig)
 	return nil
 }
 
