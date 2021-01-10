@@ -1,7 +1,7 @@
 
 ---
 
-⚠️ Custom version of `rancher/agent` with disabled [links](https://rancher.com/docs/rancher/v1.6/en/cattle/adding-services/#linking-services) support to workaround this issue:
+⚠️ Custom version of `rancher/agent` for Linux with disabled [links](https://rancher.com/docs/rancher/v1.6/en/cattle/adding-services/#linking-services) support to workaround this issue:
 
 * https://github.com/rancher/rancher/issues/30734
 

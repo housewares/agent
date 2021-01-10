@@ -1,4 +1,4 @@
-# Building and deploying custom agent version for Rancher 1.6.x
+# Building and deploying custom Linux agent for Rancher 1.6.x
 
 Depending on your setup, to use updated `agent` binary you may need to follow one of the options below.
 
