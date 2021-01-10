@@ -19,7 +19,6 @@ If you already run `rancher-agent` container on registered hosts, you can update
     rancher-agent \
     bash -c '\
     mv --verbose --no-clobber "${agent_path}" "${agent_path}.bak" && \
-    rm "${agent_path}" && \
     curl "${agent_url}" --silent --location --output "${agent_path}" && \
     chmod +x "${agent_path}" && \
     killall --exact agent && \
