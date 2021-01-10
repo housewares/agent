@@ -28,7 +28,7 @@ If you already run `rancher-agent` container on registered hosts, you can update
 
 ## 2. Specify alternate agent archive url for new hosts
 
-If you plan to register new hosts, you can configure Rancher server to send [custom url](https://forums.rancher.com/t/docs-on-how-to-build-a-debug-rancher-rancher-agent/6351) for `agent` binary archive to newly registering hosts.
+If you plan to register new hosts, you can configure Rancher server to send [custom url for agent binary archive](https://forums.rancher.com/t/docs-on-how-to-build-a-debug-rancher-rancher-agent/6351) to newly registering hosts.
 
 1. Run `make` in repo root to build agent
 2. Upload [dist/artifacts/go-agent.tar.gz](/dist/artifacts/go-agent.tar.gz) to http(s) server
@@ -36,7 +36,7 @@ If you plan to register new hosts, you can configure Rancher server to send [cus
    https://your-rancher-server/v2-beta/settings/agent.package.python.agent.url
 4. Register new host with Rancher server as usual, by running `rancher-agent` container with options provided by Rancher server's `Add host` page.
 
-## 3. Buld custom versions of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
+## 3. Buld custom version of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
 
 If you have no hosts added to Rancher server you may only need this. Otherwise, see option 1 to update existing hosts.
 
@@ -56,7 +56,9 @@ The [server-and-agent-versions.sh](server-and-agent-versions.sh) helper script g
 
 Note, that `-dirty` in version means that agent was built from non-tagged commit and there were untracked files in the repo. See [version](/scripts/version) script for details.
 
-Example output
+My limited test showed that the latest agent (`v0.13.11` aka `c8663d1-dirty`) works fine with Rancher `1.6.25`. The changes from `v0.13.9` to `v0.13.11` are [pretty minor](https://github.com/rancher/agent/compare/v0.13.9...v0.13.11).
+
+Example script output
 
 ```none
 --------------------------------------------------------------------------------
