@@ -37,15 +37,9 @@
 
 printf -v dash '%.0s-' {1..80}
 
-echo $dash
-echo '  [ rancher/server ]'
-echo $dash
-
-range=30
-for ((i=25; i<=range ; i++))
-do
-    image='rancher/server'
-    tag="v1.6.${i}"
+get_agent_version () {
+    image="${1}"
+    printf -v tag "${2}" "${3}"
     server_agent_path='/usr/share/cattle/artifacts/go-agent.tar.gz'
     tmp_file="$(mktemp)"
     digest="$(docker pull "${image}:${tag}" | grep -oP '\Ksha256:\w+$')"
@@ -66,4 +60,19 @@ do
     rm "${tmp_file}"
 
     echo $dash
+}
+
+echo $dash
+echo '  [ rancher/server ]'
+echo $dash
+
+range=30
+for ((i=25 ; i<=range ; i++))
+do
+  get_agent_version 'rancher/server' 'v1.6.%s' "${i}"
 done
+
+echo '  [ housewares/server ]'
+echo $dash
+
+get_agent_version 'housewares/server' 'v1.6.%s-no-links' '30'
