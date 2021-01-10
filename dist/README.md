@@ -36,7 +36,7 @@ If you plan to register new hosts, you can configure Rancher server to send [cus
    https://your-rancher-server/v2-beta/settings/agent.package.python.agent.url
 4. Register new host with Rancher server as usual, by running `rancher-agent` container with options provided by Rancher server's `Add host` page.
 
-## 3. Buld custom version of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
+## 3. Buld custom versions of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
 
 If you have no hosts added to Rancher server you may only need this. Otherwise, see option 1 to update existing hosts.
 
@@ -54,11 +54,11 @@ I don't have time/energy to make proper image builds for `rancher/server` image,
 
 The [server-and-agent-versions.sh](server-and-agent-versions.sh) helper script goes through the [rancher/server](https://hub.docker.com/r/rancher/server) images and tries to figure out what version of Linux agent is included in the image and which commit in this repo it's built from.
 
-Note, that `-dirty` in version means that agent was built from non-tagged commit and there were untracked files in the repo. See [version](/scripts/version) script for details.
+Note that `-dirty` in version means that when the agent was built, there were uncommited modifications in the repo. See [version](/scripts/version) script for details.
 
 My limited test showed that the latest agent (`v0.13.11` aka `c8663d1-dirty`) works fine with Rancher `1.6.25`. The changes from `v0.13.9` to `v0.13.11` are [pretty minor](https://github.com/rancher/agent/compare/v0.13.9...v0.13.11).
 
-Example script output
+#### Example script output
 
 ```none
 --------------------------------------------------------------------------------
