@@ -35,7 +35,7 @@ If you plan to register new hosts, you can configure Rancher server to send [cus
    https://your-rancher-server/v2-beta/settings/agent.package.python.agent.url
 4. Register new host with Rancher server as usual, by running `rancher-agent` container with options provided by Rancher server's `Add host` page.
 
-## 3. Buld custom versions of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
+## 3. Build custom version of [rancher/server](https://hub.docker.com/r/rancher/server) image and upgrade to it
 
 If you have no hosts added to Rancher server you may only need this. Otherwise, see option 1 to update existing hosts.
 
