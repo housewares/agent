@@ -2,7 +2,9 @@
 
 Depending on your setup, to use updated `agent` binary you may need to follow one of the options below.
 
-Note that [rancher/agent](https://hub.docker.com/r/rancher/agent) image doesn't include an actual `agent` binary. It's acquired from the server during the agent startup on host.
+Note that [rancher/agent](https://hub.docker.com/r/rancher/agent) image doesn't include an actual `agent` binary. It's location is [acquired from the server](https://forums.rancher.com/t/requesting-access-to-rancher-agent-repository/176/4) during the agent startup on host.
+
+For options 1 and 2 you can use pre-built agent binary and archive: [Releases/v0.3.11-no-links](https://github.com/housewares/agent/releases/tag/v0.3.11-no-links)
 
 ## 1. Updating agent in `rancher-agent` container
 
