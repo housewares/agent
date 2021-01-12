@@ -7,7 +7,7 @@
 
 See [dist/README.md](dist/README.md) for details on building and deploying this custom agent version.
 
-* Pre-built agent binaries: [Releases/v0.3.11-no-links](https://github.com/housewares/agent/releases/tag/v0.3.11-no-links)
+* Pre-built agent binary and archive: [Releases/v0.3.11-no-links](https://github.com/housewares/agent/releases/tag/v0.3.11-no-links)
 * Pre-built Rancher server container with updated agent: [housewares/server:v1.6.30-no-links](https://hub.docker.com/r/housewares/server)
 
 ---
